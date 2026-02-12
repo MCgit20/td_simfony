@@ -11,16 +11,13 @@
         <div class="card-body">
             <p><strong>Catégorie :</strong> {{ post.category.name }}</p>
             <p><strong>Slug :</strong> {{ post.slug }}</p>
+            <p><strong>Contenu :</strong> {{ post.content }}</p>
             <p><strong>Date de création :</strong> {{ post.createdAt|date('d/m/Y à H:i') }}</p>
             {% if post.updatedAt %}
                 <p><strong>Dernière modification :</strong> {{ post.updatedAt|date('d/m/Y à H:i') }}</p>
             {% endif %}
             
             <hr>
-            
-            <div class="content">
-                {{ post.content|nl2br }}
-            </div>
         </div>
         <div class="card-footer">
             <a href="{{ path('app_post_list') }}" class="btn btn-secondary">Retour à la liste</a>
