@@ -32,7 +32,7 @@ class Post
 
     #[ORM\ManyToOne(inversedBy: 'posts')]
     #[ORM\JoinColumn(nullable: false)]
-    private ?Category $category = null;
+    private Category $category = null;
 
     // AJOUT : Relation avec User (auteur du post)
     #[ORM\ManyToOne(inversedBy: 'posts')]
