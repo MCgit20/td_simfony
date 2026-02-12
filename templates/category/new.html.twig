@@ -10,21 +10,44 @@
 </style>
 
 <div class="example-wrapper">
-   {#  <h1>Hello {{ controller_name }}! ✅</h1> #}
 
     This friendly message is coming from:
     <ul>
         <li>Your controller at <code>/Applications/MAMP/htdocs/academy/ipssi/paris/td-ipssi-paris/src/Controller/CategoryController.php</code></li>
-        <li>Your template at <code>/Applications/MAMP/htdocs/academy/ipssi/paris/td-ipssi-paris/templates/category/new.html.twig</code></li>
+        <li>Your template at <code>/Applications/MAMP/htdocs/academy/ipssi/paris/td-ipssi-paris/templates/category/index.html.twig</code></li>
     </ul>
 
-    {{ form_start(form)}}
-        {{ form_widget(form)}}
-        <button class="btn"> {{ button_label | default('Enregistrer') }} </button>
+    <h1>Formulaire de categorie</h1>
+    {{ form_start(form, {'attr': {'novalidate': 'novalidate'}}) }}
+    <div>
+        {{ form_label(form.name) }}
+        {{ form_widget(form.name) }}
+        {% if form.name.vars.errors|length > 0 %}
+            <div class="alert alert-danger mt-2">
+                {% for error in form.name.vars.errors %}
+                    <p class="mb-0">{{ error.message }}</p>
+                {% endfor %}
+            </div>
+        {%  endif %}
+    </div>
+    <div>
+        {{ form_label(form.content) }}
+        {{ form_widget(form.content) }}
+        {% if form.content.vars.errors|length > 0 %}
+            <div class="alert alert-danger mt-2">
+                {% for error in form.content.vars.errors %}
+                    <p class="mb-0">{{ error.message }}</p>
+                {% endfor %}
+            </div>
+        {% endif %}
+    </div>
+    <div>
+        {{ form_widget(form.submit) }}
+    </div>
+    {{ form_end(form) }}
 
 
 
-    
 
 </div>
 {% endblock %}

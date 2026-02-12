@@ -7,7 +7,7 @@ use Doctrine\DBAL\Types\Types;
 use Doctrine\ORM\Mapping as ORM;
 
 #[ORM\Entity(repositoryClass: PostRepository::class)]
-#[ORM\HasLifecycleCallbacks]  // Active les callbacks de cycle de vie
+#[ORM\HasLifecycleCallbacks]
 class Post
 {
     #[ORM\Id]
@@ -34,7 +34,11 @@ class Post
     #[ORM\JoinColumn(nullable: false)]
     private ?Category $category = null;
 
-    // Remplir automatiquement createdAt avant la première insertion
+    // AJOUT : Relation avec User (auteur du post)
+    #[ORM\ManyToOne(inversedBy: 'posts')]
+    #[ORM\JoinColumn(nullable: false)]
+    private ?User $user = null;
+
     #[ORM\PrePersist]
     public function setCreatedAtValue(): void
     {
@@ -43,7 +47,6 @@ class Post
         }
     }
 
-    // Mettre à jour updatedAt avant chaque modification
     #[ORM\PreUpdate]
     public function setUpdatedAtValue(): void
     {
@@ -63,7 +66,6 @@ class Post
     public function setTitle(string $title): static
     {
         $this->title = $title;
-
         return $this;
     }
 
@@ -75,7 +77,6 @@ class Post
     public function setContent(string $content): static
     {
         $this->content = $content;
-
         return $this;
     }
 
@@ -87,7 +88,6 @@ class Post
     public function setSlug(string $slug): static
     {
         $this->slug = $slug;
-
         return $this;
     }
 
@@ -99,7 +99,6 @@ class Post
     public function setCreatedAt(\DateTimeImmutable $createdAt): static
     {
         $this->createdAt = $createdAt;
-
         return $this;
     }
 
@@ -111,7 +110,6 @@ class Post
     public function setUpdatedAt(?\DateTimeImmutable $updatedAt): static
     {
         $this->updatedAt = $updatedAt;
-
         return $this;
     }
 
@@ -123,7 +121,18 @@ class Post
     public function setCategory(?Category $category): static
     {
         $this->category = $category;
+        return $this;
+    }
 
+    // AJOUT : Getters et setters pour User
+    public function getUser(): ?User
+    {
+        return $this->user;
+    }
+
+    public function setUser(?User $user): static
+    {
+        $this->user = $user;
         return $this;
     }
 }
