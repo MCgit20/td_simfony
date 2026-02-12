@@ -34,7 +34,6 @@ class Post
     #[ORM\JoinColumn(nullable: false)]
     private Category $category = null;
 
-    // AJOUT : Relation avec User (auteur du post)
     #[ORM\ManyToOne(inversedBy: 'posts')]
     #[ORM\JoinColumn(nullable: false)]
     private ?User $user = null;
@@ -124,7 +123,6 @@ class Post
         return $this;
     }
 
-    // AJOUT : Getters et setters pour User
     public function getUser(): ?User
     {
         return $this->user;
