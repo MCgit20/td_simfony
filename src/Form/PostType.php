@@ -1,0 +1,36 @@
+<?php
+
+namespace App\Form;
+
+use App\Entity\Category;
+use App\Entity\Post;
+use Symfony\Bridge\Doctrine\Form\Type\EntityType;
+use Symfony\Component\Form\AbstractType;
+use Symfony\Component\Form\FormBuilderInterface;
+use Symfony\Component\OptionsResolver\OptionsResolver;
+
+class PostType extends AbstractType
+{
+    public function buildForm(FormBuilderInterface $builder, array $options): void
+    {
+        $builder
+            ->add('title')
+            ->add('content')
+            ->add('slug')
+            // On retire createdAt et updatedAt du formulaire
+            // Ils seront remplis automatiquement par les hooks dans l'entité
+            ->add('category', EntityType::class, [
+                'class' => Category::class,
+                'choice_label' => 'name',  // Affiche le nom au lieu de l'ID
+                'placeholder' => 'Sélectionnez une catégorie',
+            ])
+        ;
+    }
+
+    public function configureOptions(OptionsResolver $resolver): void
+    {
+        $resolver->setDefaults([
+            'data_class' => Post::class,
+        ]);
+    }
+}
