@@ -1,0 +1,16 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Éditer le post{% endblock %}
+
+{% block body %}
+<div class="container mt-5">
+    <h1>Éditer le post : {{ post.title }}</h1>
+
+    {{ form_start(form) }}
+        {{ form_widget(form) }}
+        <button type="submit" class="btn btn-success">Enregistrer les modifications</button>
+        <a href="{{ path('app_post_show', {id: post.id}) }}" class="btn btn-secondary">Annuler</a>
+        <a href="{{ path('app_post_list') }}" class="btn btn-outline-secondary">Retour à la liste</a>
+    {{ form_end(form) }}
+</div>
+{% endblock %}
